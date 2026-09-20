@@ -179,18 +179,24 @@
 .heart-trigger:focus-visible { outline: 2px solid var(--accent-red); outline-offset: 5px; }
 .services-backdrop { position: fixed; z-index: 20; inset: 0; display: grid; place-items: center; padding: 1rem; visibility: hidden; opacity: 0; background: var(--backdrop); backdrop-filter: blur(0); transition: opacity 320ms ease, visibility 320ms, backdrop-filter 400ms ease; }
 .services-backdrop.is-open { visibility: visible; opacity: 1; backdrop-filter: blur(9px); }
-.services-heart { position: relative; width: min(94vw, 42rem); aspect-ratio: 1.08 / 1; transform: scale(0.14) translate(-30vw, -16vh); transform-origin: 38% 35%; opacity: 0; filter: drop-shadow(0 2rem 3.5rem var(--panel-shadow)); transition: transform 480ms cubic-bezier(.16, 1, .3, 1), opacity 260ms ease; }
-.services-heart::before, .services-heart::after { content: ""; position: absolute; inset: 0; clip-path: polygon(50% 96%, 42% 88%, 12% 58%, 5% 43%, 5% 28%, 10% 16%, 20% 9%, 31% 8%, 41% 12%, 50% 22%, 59% 12%, 69% 8%, 80% 9%, 90% 16%, 95% 28%, 95% 43%, 88% 58%, 58% 88%); }
-.services-heart::before { background: linear-gradient(145deg, var(--heart-glass-hi), var(--heart-glass) 48%, var(--heart-glass-pink)); border: 1px solid var(--heart-line); backdrop-filter: blur(28px) saturate(145%); }
-.services-heart::after { inset: 2px; background: linear-gradient(145deg, var(--heart-shine), transparent 46%, var(--heart-inner-glow)); pointer-events: none; }
+.services-heart { position: relative; width: min(94vw, 42rem); aspect-ratio: 1 / 1; transform: scale(0.14) translate(-30vw, -16vh); transform-origin: 38% 35%; opacity: 0; filter: drop-shadow(0 2rem 3.5rem var(--panel-shadow)); transition: transform 480ms cubic-bezier(.16, 1, .3, 1), opacity 260ms ease; }
+.services-heart-shape { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.heart-glass-path { fill: url(#heart-glass-gradient); stroke: var(--heart-line); stroke-width: 4; vector-effect: non-scaling-stroke; }
+.heart-shine-path { fill: url(#heart-shine-gradient); stroke: color-mix(in oklab, var(--heart-line) 78%, transparent); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.heart-stop-highlight { stop-color: var(--heart-glass-hi); }
+.heart-stop-glass { stop-color: var(--heart-glass); }
+.heart-stop-rose { stop-color: var(--heart-glass-pink); }
+.heart-stop-shine { stop-color: var(--heart-shine); }
+.heart-stop-clear { stop-color: var(--heart-shine); stop-opacity: 0; }
+.heart-stop-glow { stop-color: var(--heart-inner-glow); }
 .is-open .services-heart { transform: scale(1) translate(0, 0); opacity: 1; }
-.heart-close { position: absolute; z-index: 3; top: 16%; right: 13%; border-radius: 999px; color: var(--panel-muted); }
+.heart-close { position: absolute; z-index: 3; top: 16%; right: 13.5%; border-radius: 999px; color: var(--panel-muted); }
 .heart-close:hover { color: var(--panel-text); background: var(--close-bg); }
-.services-content { position: absolute; z-index: 2; inset: 15% 13% 13%; color: var(--panel-text); text-align: center; }
+.services-content { position: absolute; z-index: 2; inset: 18% 14% 15%; color: var(--panel-text); text-align: center; }
 .services-kicker { margin: 0 0 0.15rem; color: var(--accent-red); font-size: 0.68rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; }
-.services-content h1 { margin: 0 0 1rem; font-family: var(--font-display); font-size: clamp(1.75rem, 5vw, 2.65rem); font-weight: 600; line-height: 1; }
-.services-list { width: 78%; margin: 0 auto; }
-.service-row { display: grid; grid-template-columns: minmax(0, 1fr) 1.25rem minmax(0, 1fr); align-items: center; min-height: 2.05rem; font-size: clamp(0.71rem, 1.6vw, 0.94rem); font-weight: 650; opacity: 0; transform: translateY(0.6rem); }
+.services-content h1 { margin: 0 0 1rem; font-family: var(--font-display); font-size: clamp(1.75rem, 5vw, 2.65rem); font-weight: 600; line-height: 1.05; }
+.services-list { width: 84%; margin: 0 auto; }
+.service-row { display: grid; grid-template-columns: minmax(0, 1fr) 1.25rem minmax(0, 1fr); align-items: center; min-height: 2.05rem; font-size: clamp(0.71rem, 1.6vw, 0.94rem); font-weight: 650; line-height: 1.15; opacity: 0; transform: translateY(0.6rem); }
 .is-open .service-row { animation: row-arrive 420ms var(--row-delay) ease forwards; }
 .service-row span:first-child { text-align: right; }
 .service-row span:last-child { text-align: left; }
@@ -203,12 +209,14 @@
   .poster-wrap { width: min(100vw, 31rem); height: auto; min-height: 0; }
   .heart-trigger { width: 27%; height: 17.5%; left: 13.2%; top: 19.6%; }
   .services-backdrop { padding: 0.35rem; }
-  .services-heart { width: min(99vw, 35rem); aspect-ratio: 0.9 / 1; }
-  .services-content { inset: 14% 9% 12%; }
-  .services-content h1 { margin-bottom: 0.6rem; }
-  .services-list { width: 88%; }
-  .service-row { min-height: clamp(1.65rem, 5.15vw, 1.95rem); line-height: 1.05; }
-  .heart-close { top: 14%; right: 10%; }
+  .services-heart { width: min(99vw, 35rem); aspect-ratio: 0.86 / 1; }
+  .services-heart-shape { overflow: visible; }
+  .services-content { inset: 21% 7.5% 12%; }
+  .services-content h1 { margin-bottom: 0.45rem; font-size: clamp(1.48rem, 6.8vw, 1.9rem); }
+  .services-kicker { font-size: 0.62rem; }
+  .services-list { width: 94%; }
+  .service-row { grid-template-columns: minmax(0, 1fr) 1rem minmax(0, 1fr); min-height: clamp(1.5rem, 4.9vw, 1.75rem); font-size: clamp(0.67rem, 3vw, 0.82rem); }
+  .heart-close { top: 17%; right: 8%; }
 }
 
 @media (max-height: 650px) and (orientation: landscape) {
