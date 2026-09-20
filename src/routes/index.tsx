@@ -52,11 +52,6 @@ function Index() {
       <div className="poster-wrap">
         <img className="poster-image" src={posterAsset.url} alt="Antony Xavier holding a glowing heart beneath the words Touch My Heart" />
         <Button type="button" variant="ghost" className="heart-trigger" aria-label="Touch My Heart" aria-expanded={isOpen} aria-controls="services-heart" onClick={() => setIsOpen((open) => !open)}>
-          <span className="heart-ring" aria-hidden="true" />
-          <span className="heart-spark heart-spark-one" aria-hidden="true" />
-          <span className="heart-spark heart-spark-two" aria-hidden="true" />
-          <span className="heart-spark heart-spark-three" aria-hidden="true" />
-          <span className="heart-hint" aria-hidden="true">Touch</span>
         </Button>
       </div>
 
