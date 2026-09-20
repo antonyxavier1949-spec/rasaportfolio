@@ -57,6 +57,22 @@ function Index() {
 
       <div className={`services-backdrop ${isOpen ? "is-open" : ""}`} aria-hidden={!isOpen} onMouseDown={(event) => event.target === event.currentTarget && setIsOpen(false)}>
         <section id="services-heart" className="services-heart" role="dialog" aria-modal="true" aria-label="Services">
+          <svg className="services-heart-shape" viewBox="0 0 1000 1000" aria-hidden="true" preserveAspectRatio="none">
+            <defs>
+              <linearGradient id="heart-glass-gradient" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" className="heart-stop-highlight" />
+                <stop offset="0.52" className="heart-stop-glass" />
+                <stop offset="1" className="heart-stop-rose" />
+              </linearGradient>
+              <linearGradient id="heart-shine-gradient" x1="0.12" y1="0.05" x2="0.88" y2="0.92">
+                <stop offset="0" className="heart-stop-shine" />
+                <stop offset="0.48" className="heart-stop-clear" />
+                <stop offset="1" className="heart-stop-glow" />
+              </linearGradient>
+            </defs>
+            <path className="heart-glass-path" d="M500 930 C430 852 92 622 82 348 C74 126 337 45 500 198 C663 45 926 126 918 348 C908 622 570 852 500 930 Z" />
+            <path className="heart-shine-path" d="M500 930 C430 852 92 622 82 348 C74 126 337 45 500 198 C663 45 926 126 918 348 C908 622 570 852 500 930 Z" />
+          </svg>
           <Button ref={closeButtonRef} type="button" variant="ghost" size="icon" className="heart-close" aria-label="Close services" onClick={() => setIsOpen(false)}>
             <X aria-hidden="true" />
           </Button>
