@@ -211,12 +211,12 @@
   .services-backdrop { padding: 0.35rem; }
   .services-heart { width: min(99vw, 35rem); aspect-ratio: 0.86 / 1; }
   .services-heart-shape { overflow: visible; }
-  .services-content { inset: 17% 7.5% 14%; }
-  .services-content h1 { margin-bottom: 0.65rem; font-size: clamp(1.65rem, 7.5vw, 2.15rem); }
+  .services-content { inset: 21% 7.5% 12%; }
+  .services-content h1 { margin-bottom: 0.45rem; font-size: clamp(1.48rem, 6.8vw, 1.9rem); }
   .services-kicker { font-size: 0.62rem; }
   .services-list { width: 94%; }
-  .service-row { grid-template-columns: minmax(0, 1fr) 1rem minmax(0, 1fr); min-height: clamp(1.65rem, 5.4vw, 1.95rem); font-size: clamp(0.67rem, 3vw, 0.82rem); }
-  .heart-close { top: 14%; right: 8%; }
+  .service-row { grid-template-columns: minmax(0, 1fr) 1rem minmax(0, 1fr); min-height: clamp(1.5rem, 4.9vw, 1.75rem); font-size: clamp(0.67rem, 3vw, 0.82rem); }
+  .heart-close { top: 17%; right: 8%; }
 }
 
 @media (max-height: 650px) and (orientation: landscape) {
