@@ -185,7 +185,7 @@
   background: radial-gradient(circle at 50% 44%, color-mix(in oklab, var(--accent-red) 10%, transparent), transparent 31%), var(--background);
 }
 
-.poster-wrap { position: relative; height: min(96svh, 73vw); aspect-ratio: 2 / 3; min-height: 36rem; }
+.poster-wrap { position: relative; height: min(96svh, 90vw); aspect-ratio: 2 / 3; min-height: 36rem; }
 .poster-image { display: block; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 2rem 2.5rem oklch(0 0 0 / 0.46)); user-select: none; }
 .heart-trigger { position: absolute; z-index: 4; top: 20.6%; left: 15.2%; width: 23%; height: 15.5%; padding: 0; border-radius: 50%; color: var(--heart-light); background: transparent; cursor: pointer; touch-action: manipulation; }
 .heart-trigger:hover, .heart-trigger:focus-visible { background: transparent; }
@@ -223,7 +223,7 @@
   .poster-wrap { width: min(100vw, 31rem); height: auto; min-height: 0; }
   .heart-trigger { width: 27%; height: 17.5%; left: 13.2%; top: 19.6%; }
   .services-backdrop { padding: 0.35rem; }
-  .services-heart { width: min(99vw, 35rem); }
+  .services-heart { width: min(99vw, 35rem); aspect-ratio: 0.9 / 1; }
   .services-content { inset: 14% 9% 12%; }
   .services-content h1 { margin-bottom: 0.6rem; }
   .services-list { width: 88%; }
