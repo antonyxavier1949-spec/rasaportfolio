@@ -164,7 +164,7 @@
 
 @keyframes row-arrive { to { opacity: 1; transform: translateY(0); } }
 @keyframes heart-glow-in { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
-@keyframes heart-glow-breathe { 0%, 100% { opacity: 0.55; transform: scale(1); } 50% { opacity: 1; transform: scale(1.035); } }
+@keyframes heart-glow-breathe { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.55; transform: scale(0.985); } }
 
 .hero-stage {
   position: relative;
@@ -194,6 +194,7 @@
 .heart-stop-shine { stop-color: var(--heart-shine); }
 .heart-stop-clear { stop-color: var(--heart-shine); stop-opacity: 0; }
 .heart-stop-glow { stop-color: var(--heart-inner-glow); }
+.is-open .heart-glow-path { animation: heart-glow-in 620ms cubic-bezier(.16, 1, .3, 1) forwards, heart-glow-breathe 2.8s ease-in-out 620ms infinite; }
 .is-open .services-heart { transform: scale(1) translate(0, 0); opacity: 1; }
 .heart-close { position: absolute; z-index: 3; top: 16%; right: 13.5%; border-radius: 999px; color: var(--panel-muted); }
 .heart-close:hover { color: var(--panel-text); background: var(--close-bg); }
@@ -233,6 +234,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .is-open .service-row { animation: none; }
-  .services-backdrop, .services-heart { transition-duration: 0.01ms; }
+  .services-backdrop, .services-heart, .heart-glow-path { transition-duration: 0.01ms; }
+  .is-open .heart-glow-path { animation: heart-glow-in 0.01ms forwards; }
   .is-open .service-row { opacity: 1; transform: none; }
 }
