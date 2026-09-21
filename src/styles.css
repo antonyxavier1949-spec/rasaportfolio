@@ -196,9 +196,9 @@
 .heart-stop-glow { stop-color: var(--heart-inner-glow); }
 .is-open .heart-glow-path { opacity: 1; animation: heart-glow-in 620ms cubic-bezier(.16, 1, .3, 1), heart-glow-breathe 2.8s ease-in-out 620ms infinite; }
 .is-open .services-heart { transform: scale(1) translate(0, 0); opacity: 1; }
-.heart-close { position: absolute; z-index: 3; top: 16%; right: 13.5%; border-radius: 999px; color: var(--panel-muted); }
+.heart-close { position: absolute; z-index: 3; top: 20.5%; right: 12%; border-radius: 999px; color: var(--panel-muted); }
 .heart-close:hover { color: var(--panel-text); background: var(--close-bg); }
-.services-content { position: absolute; z-index: 2; inset: 18% 14% 15%; color: var(--panel-text); text-align: center; }
+.services-content { position: absolute; z-index: 2; inset: 23.5% 14% 11.5%; color: var(--panel-text); text-align: center; }
 .services-kicker { margin: 0 0 0.15rem; color: var(--accent-red); font-size: 0.68rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; }
 .services-content h1 { margin: 0 0 1rem; font-family: var(--font-display); font-size: clamp(1.75rem, 5vw, 2.65rem); font-weight: 600; line-height: 1.05; }
 .services-list { width: 84%; margin: 0 auto; }
@@ -217,12 +217,12 @@
   .services-backdrop { padding: 0.35rem; }
   .services-heart { width: min(99vw, 35rem); aspect-ratio: 0.86 / 1; }
   .services-heart-shape { overflow: visible; }
-  .services-content { inset: 21% 7.5% 12%; }
+  .services-content { inset: 25.5% 7.5% 10%; }
   .services-content h1 { margin-bottom: 0.45rem; font-size: clamp(1.48rem, 6.8vw, 1.9rem); }
   .services-kicker { font-size: 0.62rem; }
   .services-list { width: 94%; }
   .service-row { grid-template-columns: minmax(0, 1fr) 1rem minmax(0, 1fr); min-height: clamp(1.5rem, 4.9vw, 1.75rem); font-size: clamp(0.67rem, 3vw, 0.82rem); }
-  .heart-close { top: 17%; right: 8%; }
+  .heart-close { top: 22%; right: 7.5%; }
 }
 
 @media (max-height: 650px) and (orientation: landscape) {
