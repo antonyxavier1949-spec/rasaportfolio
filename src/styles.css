@@ -66,6 +66,8 @@
 :root {
   --radius: 0.625rem;
   --accent-red: oklch(0.62 0.25 27);
+  --heart-glow: oklch(0.78 0.19 25 / 0.85);
+  --heart-glow-soft: oklch(0.86 0.13 20 / 0.6);
   --backdrop: oklch(0.68 0.015 20 / 0.34);
   --heart-glass-hi: oklch(1 0.006 20 / 0.98);
   --heart-glass: oklch(0.99 0.012 18 / 0.96);
@@ -161,6 +163,8 @@
 }
 
 @keyframes row-arrive { to { opacity: 1; transform: translateY(0); } }
+@keyframes heart-glow-in { from { transform: scale(0.82); } to { transform: scale(1); } }
+@keyframes heart-glow-breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(0.982); } }
 
 .hero-stage {
   position: relative;
@@ -181,6 +185,7 @@
 .services-backdrop.is-open { visibility: visible; opacity: 1; backdrop-filter: blur(9px); }
 .services-heart { position: relative; width: min(94vw, 42rem); aspect-ratio: 1 / 1; transform: scale(0.14) translate(-30vw, -16vh); transform-origin: 38% 35%; opacity: 0; filter: drop-shadow(0 2rem 3.5rem var(--panel-shadow)); transition: transform 480ms cubic-bezier(.16, 1, .3, 1), opacity 260ms ease; }
 .services-heart-shape { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.heart-glow-path { fill: var(--heart-glow); filter: blur(24px); transform-origin: 50% 42%; opacity: 0; transition: opacity 520ms ease; will-change: opacity, transform; }
 .heart-glass-path { fill: url(#heart-glass-gradient); stroke: var(--heart-line); stroke-width: 4; vector-effect: non-scaling-stroke; }
 .heart-shine-path { fill: url(#heart-shine-gradient); stroke: color-mix(in oklab, var(--heart-line) 78%, transparent); stroke-width: 1; vector-effect: non-scaling-stroke; }
 .heart-stop-highlight { stop-color: var(--heart-glass-hi); }
@@ -189,6 +194,7 @@
 .heart-stop-shine { stop-color: var(--heart-shine); }
 .heart-stop-clear { stop-color: var(--heart-shine); stop-opacity: 0; }
 .heart-stop-glow { stop-color: var(--heart-inner-glow); }
+.is-open .heart-glow-path { opacity: 1; animation: heart-glow-in 620ms cubic-bezier(.16, 1, .3, 1), heart-glow-breathe 2.8s ease-in-out 620ms infinite; }
 .is-open .services-heart { transform: scale(1) translate(0, 0); opacity: 1; }
 .heart-close { position: absolute; z-index: 3; top: 16%; right: 13.5%; border-radius: 999px; color: var(--panel-muted); }
 .heart-close:hover { color: var(--panel-text); background: var(--close-bg); }
@@ -228,6 +234,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .is-open .service-row { animation: none; }
-  .services-backdrop, .services-heart { transition-duration: 0.01ms; }
+  .services-backdrop, .services-heart, .heart-glow-path { transition-duration: 0.01ms; }
+  .is-open .heart-glow-path { animation: none; }
   .is-open .service-row { opacity: 1; transform: none; }
 }

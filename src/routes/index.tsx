@@ -70,6 +70,7 @@ function Index() {
                 <stop offset="1" className="heart-stop-glow" />
               </linearGradient>
             </defs>
+            <path className="heart-glow-path" d="M500 930 C430 852 92 622 82 348 C74 126 337 45 500 198 C663 45 926 126 918 348 C908 622 570 852 500 930 Z" />
             <path className="heart-glass-path" d="M500 930 C430 852 92 622 82 348 C74 126 337 45 500 198 C663 45 926 126 918 348 C908 622 570 852 500 930 Z" />
             <path className="heart-shine-path" d="M500 930 C430 852 92 622 82 348 C74 126 337 45 500 198 C663 45 926 126 918 348 C908 622 570 852 500 930 Z" />
           </svg>
