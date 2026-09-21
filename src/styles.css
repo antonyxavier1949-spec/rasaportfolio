@@ -66,6 +66,8 @@
 :root {
   --radius: 0.625rem;
   --accent-red: oklch(0.62 0.25 27);
+  --heart-glow: oklch(0.78 0.19 25 / 0.85);
+  --heart-glow-soft: oklch(0.86 0.13 20 / 0.6);
   --backdrop: oklch(0.68 0.015 20 / 0.34);
   --heart-glass-hi: oklch(1 0.006 20 / 0.98);
   --heart-glass: oklch(0.99 0.012 18 / 0.96);
