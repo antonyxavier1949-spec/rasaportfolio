@@ -217,11 +217,11 @@
   .services-backdrop { padding: 0.35rem; }
   .services-heart { width: min(99vw, 35rem); aspect-ratio: 0.86 / 1; }
   .services-heart-shape { overflow: visible; }
-  .services-content { inset: 25.5% 7.5% 10%; }
-  .services-content h1 { margin-bottom: 0.45rem; font-size: clamp(1.48rem, 6.8vw, 1.9rem); }
+  .services-content { inset: 25.5% 7.5% 14%; }
+  .services-content h1 { margin-bottom: 0.4rem; font-size: clamp(1.42rem, 6.4vw, 1.9rem); }
   .services-kicker { font-size: 0.62rem; }
   .services-list { width: 94%; }
-  .service-row { grid-template-columns: minmax(0, 1fr) 1rem minmax(0, 1fr); min-height: clamp(1.5rem, 4.9vw, 1.75rem); font-size: clamp(0.67rem, 3vw, 0.82rem); }
+  .service-row { grid-template-columns: minmax(0, 1fr) 1rem minmax(0, 1fr); min-height: clamp(1.3rem, 4.1vw, 1.6rem); font-size: clamp(0.65rem, 2.9vw, 0.8rem); }
   .heart-close { top: 22%; right: 7.5%; }
 }
 
