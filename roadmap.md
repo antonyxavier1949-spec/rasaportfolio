@@ -1,0 +1,4 @@
+- [ ] Add persistent public booking requests with validated submission and confirmation.
+- [ ] Add secure admin sign-in, protected booking management, and initial-account setup.
+- [ ] Add private WhatsApp notification sending, delivery tracking, and the signed webhook inbox; connect WhatsApp if the user completes setup.
+- [ ] Verify the customer booking flow, admin authorization boundaries, and mobile layouts; record any external setup blockers.
