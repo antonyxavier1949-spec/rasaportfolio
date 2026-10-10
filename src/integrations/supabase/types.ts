@@ -14,13 +14,241 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      booking_rate_limits: {
+        Row: {
+          attempts: number
+          ip_hash: string
+          updated_at: string
+          window_started_at: string
+        }
+        Insert: {
+          attempts?: number
+          ip_hash: string
+          updated_at?: string
+          window_started_at?: string
+        }
+        Update: {
+          attempts?: number
+          ip_hash?: string
+          updated_at?: string
+          window_started_at?: string
+        }
+        Relationships: []
+      }
+      bookings: {
+        Row: {
+          booking_reference: string
+          created_at: string
+          customer_email: string
+          customer_message: string
+          customer_name: string
+          customer_phone: string
+          id: string
+          notification_attempts: number
+          preferred_date: string
+          preferred_time: string
+          service_name: string
+          status: string
+          timezone: string
+          updated_at: string
+          whatsapp_error: string | null
+          whatsapp_sent_at: string | null
+          whatsapp_status: string
+        }
+        Insert: {
+          booking_reference: string
+          created_at?: string
+          customer_email: string
+          customer_message?: string
+          customer_name: string
+          customer_phone: string
+          id?: string
+          notification_attempts?: number
+          preferred_date: string
+          preferred_time: string
+          service_name: string
+          status?: string
+          timezone?: string
+          updated_at?: string
+          whatsapp_error?: string | null
+          whatsapp_sent_at?: string | null
+          whatsapp_status?: string
+        }
+        Update: {
+          booking_reference?: string
+          created_at?: string
+          customer_email?: string
+          customer_message?: string
+          customer_name?: string
+          customer_phone?: string
+          id?: string
+          notification_attempts?: number
+          preferred_date?: string
+          preferred_time?: string
+          service_name?: string
+          status?: string
+          timezone?: string
+          updated_at?: string
+          whatsapp_error?: string | null
+          whatsapp_sent_at?: string | null
+          whatsapp_status?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          display_name: string
+          id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          display_name?: string
+          id?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          display_name?: string
+          id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      whatsapp_outbound_messages: {
+        Row: {
+          booking_id: string
+          created_at: string
+          delivery_errors: Json
+          delivery_status: string | null
+          id: string
+          provider_timestamp: string | null
+          recipient_phone: string
+          send_error: Json | null
+          send_response: Json | null
+          send_status: string
+          updated_at: string
+          whatsapp_message_id: string | null
+        }
+        Insert: {
+          booking_id: string
+          created_at?: string
+          delivery_errors?: Json
+          delivery_status?: string | null
+          id?: string
+          provider_timestamp?: string | null
+          recipient_phone: string
+          send_error?: Json | null
+          send_response?: Json | null
+          send_status: string
+          updated_at?: string
+          whatsapp_message_id?: string | null
+        }
+        Update: {
+          booking_id?: string
+          created_at?: string
+          delivery_errors?: Json
+          delivery_status?: string | null
+          id?: string
+          provider_timestamp?: string | null
+          recipient_phone?: string
+          send_error?: Json | null
+          send_response?: Json | null
+          send_status?: string
+          updated_at?: string
+          whatsapp_message_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "whatsapp_outbound_messages_booking_id_fkey"
+            columns: ["booking_id"]
+            isOneToOne: false
+            referencedRelation: "bookings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      whatsapp_webhook_events: {
+        Row: {
+          delivery_id: string
+          event: string
+          id: string
+          payload: Json
+          processed_at: string | null
+          processing_error: string | null
+          received_at: string
+        }
+        Insert: {
+          delivery_id: string
+          event: string
+          id?: string
+          payload: Json
+          processed_at?: string | null
+          processing_error?: string | null
+          received_at?: string
+        }
+        Update: {
+          delivery_id?: string
+          event?: string
+          id?: string
+          payload?: Json
+          processed_at?: string | null
+          processing_error?: string | null
+          received_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      create_booking_request: {
+        Args: {
+          p_customer_email: string
+          p_customer_message: string
+          p_customer_name: string
+          p_customer_phone: string
+          p_ip_hash: string
+          p_preferred_date: string
+          p_preferred_time: string
+          p_service_name: string
+        }
+        Returns: {
+          booking_reference: string
+          customer_name: string
+          id: string
+          preferred_date: string
+          preferred_time: string
+          service_name: string
+          status: string
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never
