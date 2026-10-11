@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
-import { X } from "lucide-react";
+import { MessageCircle, X } from "lucide-react";
 
 import posterAsset from "@/assets/antony-touch-my-heart.png.asset.json";
 import { Button } from "@/components/ui/button";
@@ -16,6 +16,8 @@ const serviceRows = [
   ["Dancer", "Model"],
   ["Producer", "Sponsor"],
 ] as const;
+
+const whatsappNumber = "919585157141";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -56,6 +58,17 @@ function Index() {
       </div>
 
       <div className={`services-backdrop ${isOpen ? "is-open" : ""}`} aria-hidden={!isOpen} onMouseDown={(event) => event.target === event.currentTarget && setIsOpen(false)}>
+        <a
+          className="whatsapp-button"
+          href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent("Hi Antony, I'd like to book a service.")}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Chat on WhatsApp"
+          tabIndex={isOpen ? 0 : -1}
+        >
+          <MessageCircle aria-hidden="true" />
+          <span>WhatsApp</span>
+        </a>
         <section id="services-heart" className="services-heart" role="dialog" aria-modal="true" aria-label="Services">
           <svg className="services-heart-shape" viewBox="0 0 1000 1000" aria-hidden="true" preserveAspectRatio="none">
             <defs>
