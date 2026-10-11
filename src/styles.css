@@ -182,6 +182,12 @@
 .heart-trigger:hover, .heart-trigger:focus-visible { background: transparent; }
 .heart-trigger:focus-visible { outline: 2px solid var(--accent-red); outline-offset: 5px; }
 .services-backdrop { position: fixed; z-index: 20; inset: 0; display: grid; place-items: center; padding: 1rem; visibility: hidden; opacity: 0; background: var(--backdrop); backdrop-filter: blur(0); transition: opacity 320ms ease, visibility 320ms, backdrop-filter 400ms ease; }
+.services-backdrop { --heart-h: min(94vw, 42rem); }
+.whatsapp-button { position: absolute; z-index: 5; left: 50%; top: max(0.75rem, calc(50% - var(--heart-h) / 2 + var(--heart-h) * 0.045 - 3.4rem)); display: inline-flex; align-items: center; gap: 0.5rem; height: 2.75rem; padding: 0 1.25rem; border-radius: 999px; color: oklch(0.99 0 0); background: oklch(0.62 0.17 150); box-shadow: 0 0.6rem 1.6rem oklch(0.62 0.17 150 / 0.38); font-size: 0.9rem; font-weight: 700; text-decoration: none; opacity: 0; transform: translate(-50%, 1rem); transition: opacity 360ms ease, transform 420ms cubic-bezier(.16, 1, .3, 1), box-shadow 200ms ease; }
+.whatsapp-button svg { width: 1.2rem; height: 1.2rem; }
+.whatsapp-button:hover { box-shadow: 0 0.8rem 2rem oklch(0.62 0.17 150 / 0.5); }
+.whatsapp-button:focus-visible { outline: 2px solid var(--accent-red); outline-offset: 3px; }
+.is-open .whatsapp-button { opacity: 1; transform: translate(-50%, 0); transition-delay: 160ms, 160ms, 0s; }
 .services-backdrop.is-open { visibility: visible; opacity: 1; backdrop-filter: blur(9px); }
 .services-heart { position: relative; width: min(94vw, 42rem); aspect-ratio: 1 / 1; transform: scale(0.14) translate(-30vw, -16vh); transform-origin: 38% 35%; opacity: 0; filter: drop-shadow(0 2rem 3.5rem var(--panel-shadow)); transition: transform 480ms cubic-bezier(.16, 1, .3, 1), opacity 260ms ease; }
 .services-heart-shape { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
@@ -214,7 +220,7 @@
 @media (max-width: 767px) {
   .poster-wrap { width: min(100vw, 31rem); height: auto; min-height: 0; }
   .heart-trigger { width: 27%; height: 17.5%; left: 13.2%; top: 19.6%; }
-  .services-backdrop { padding: 0.35rem; }
+  .services-backdrop { padding: 0.35rem; --heart-h: calc(min(99vw, 35rem) / 0.86); }
   .services-heart { width: min(99vw, 35rem); aspect-ratio: 0.86 / 1; }
   .services-heart-shape { overflow: visible; }
   .services-content { inset: 25.5% 7.5% 14%; }
@@ -227,6 +233,7 @@
 
 @media (max-height: 650px) and (orientation: landscape) {
   .poster-wrap { height: 98svh; min-height: 0; }
+  .services-backdrop { --heart-h: 98svh; }
   .services-heart { height: 98svh; width: auto; }
   .service-row { min-height: 1.6rem; }
   .services-content h1 { font-size: 1.75rem; margin-bottom: 0.45rem; }
