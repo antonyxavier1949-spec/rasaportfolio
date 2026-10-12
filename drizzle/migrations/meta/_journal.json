@@ -8,6 +8,13 @@
       "when": 1791649031768,
       "tag": "0000_create_service_booking_admin",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1791784941107,
+      "tag": "0001_grant_admin_booking_access",
+      "breakpoints": true
     }
   ]
 }
