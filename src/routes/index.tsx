@@ -105,5 +105,10 @@ function Index() {
         </section>
       </div>
     </main>
+    <footer className="site-footer">
+      <Button asChild type="button" variant="ghost" size="sm" className="admin-page-link">
+        <Link to="/admin/login">Admin Page</Link>
+      </Button>
+    </footer>
   );
 }
