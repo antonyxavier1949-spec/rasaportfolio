@@ -10,7 +10,7 @@ const bookingSchema = z.object({
   name: z.string().trim().min(2).max(100),
   phone: z.string().trim().regex(/^\+?[1-9]\d{7,19}$/, "Enter a valid phone number with country code."),
   email: z.string().trim().email().max(255),
-  service: z.enum(bookingServices),
+  service: z.string().refine((service) => bookingServices.some((available) => available === service), "Choose a valid service."),
   date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
   time: z.string().regex(/^\d{2}:\d{2}$/),
   message: z.string().trim().max(1000),
