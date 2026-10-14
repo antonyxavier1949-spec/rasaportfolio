@@ -1,3 +1,4 @@
+- [ ] Add a small footer link to the Admin Login page.
 - [ ] Add persistent public booking requests with validated submission and confirmation.
 - [ ] Add secure admin sign-in, protected booking management, and initial-account setup.
 - [ ] Add private WhatsApp notification sending, delivery tracking, and the signed webhook inbox; connect WhatsApp if the user completes setup.
