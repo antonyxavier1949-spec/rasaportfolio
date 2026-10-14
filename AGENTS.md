@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Keep admin sign-in in its own file-based route and reuse the existing browser auth client so its entry point is directly linkable and consistent with the app's auth setup.
