@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { createClient } from "@supabase/supabase-js";
 import { z } from "zod";
+import { getRequestIP } from "@tanstack/react-start/server";
 
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import type { Database } from "@/integrations/supabase/types";
@@ -11,8 +12,11 @@ const bookingSchema = z.object({
   phone: z.string().trim().regex(/^\+?[1-9]\d{7,19}$/, "Enter a valid phone number with country code."),
   email: z.string().trim().email().max(255),
   service: z.string().refine((service) => bookingServices.some((available) => available === service), "Choose a valid service."),
-  date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
-  time: z.string().regex(/^\d{2}:\d{2}$/),
+  date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).refine((date) => {
+    const indiaToday = new Date(Date.now() + 330 * 60 * 1000).toISOString().slice(0, 10);
+    return date >= indiaToday;
+  }, "Choose today or a future date."),
+  time: z.string().regex(/^(?:[01]\d|2[0-3]):[0-5]\d$/, "Choose a valid time."),
   message: z.string().trim().max(1000),
 });
 
@@ -26,7 +30,9 @@ export const createBooking = createServerFn({ method: "POST" })
     const client = createClient<Database>(url, key, {
       auth: { persistSession: false, autoRefreshToken: false },
     });
-    const ip = "booking-client";
+    const requestIp = getRequestIP({ xForwardedFor: true }) ?? "unknown";
+    const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(requestIp));
+    const ip = Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, "0")).join("");
     const { data: rows, error } = await client.rpc("create_booking_request", {
       p_ip_hash: ip,
       p_customer_name: data.name,
