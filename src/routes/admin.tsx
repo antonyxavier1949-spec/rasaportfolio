@@ -26,7 +26,20 @@ import { bookingServices } from "@/lib/booking-data";
 import { deleteBooking, editBooking, getAdminBookings, updateBookingStatus } from "@/lib/booking.functions";
 import type { Tables } from "@/integrations/supabase/types";
 
-type Booking = Tables<"bookings">;
+type Booking = Pick<Tables<"bookings">,
+  | "id"
+  | "booking_reference"
+  | "customer_name"
+  | "customer_phone"
+  | "customer_email"
+  | "service_name"
+  | "preferred_date"
+  | "preferred_time"
+  | "customer_message"
+  | "status"
+  | "created_at"
+  | "whatsapp_status"
+>;
 type Status = "pending" | "confirmed" | "completed" | "cancelled";
 type BookingEdit = {
   name: string;
