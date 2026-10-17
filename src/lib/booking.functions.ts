@@ -1,24 +1,11 @@
 import { createServerFn } from "@tanstack/react-start";
 import { createClient } from "@supabase/supabase-js";
-import { z } from "zod";
 import { getRequestIP } from "@tanstack/react-start/server";
 
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import type { Database } from "@/integrations/supabase/types";
 import { adminEmail, bookingServices } from "@/lib/booking-data";
-
-const bookingSchema = z.object({
-  name: z.string().trim().min(2).max(100),
-  phone: z.string().trim().regex(/^\+?[1-9]\d{7,19}$/, "Enter a valid phone number with country code."),
-  email: z.string().trim().email().max(255),
-  service: z.string().refine((service) => bookingServices.some((available) => available === service), "Choose a valid service."),
-  date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).refine((date) => {
-    const indiaToday = new Date(Date.now() + 330 * 60 * 1000).toISOString().slice(0, 10);
-    return date >= indiaToday;
-  }, "Choose today or a future date."),
-  time: z.string().regex(/^(?:[01]\d|2[0-3]):[0-5]\d$/, "Choose a valid time."),
-  message: z.string().trim().max(1000),
-});
+import { bookingSchema } from "@/lib/booking-schema";
 
 export const createBooking = createServerFn({ method: "POST" })
   .inputValidator((input) => bookingSchema.parse(input))
@@ -62,13 +49,8 @@ export const getAdminBookings = createServerFn({ method: "GET" })
     if (userError || userData.user?.email?.toLowerCase() !== adminEmail) {
       throw new Error("You do not have access to the booking page.");
     }
-    const { data: role, error: roleError } = await supabase
-      .from("user_roles")
-      .select("role")
-      .eq("user_id", userId)
-      .eq("role", "admin")
-      .maybeSingle();
-    if (roleError || !role) throw new Error("You do not have access to the booking page.");
+    const { data: hasAdminRole, error: roleError } = await supabase.rpc("has_admin_role");
+    if (roleError || !hasAdminRole) throw new Error("You do not have access to the booking page.");
 
     const { data, error } = await supabase
       .from("bookings")
@@ -85,9 +67,23 @@ export const updateBookingStatus = createServerFn({ method: "POST" })
     const { supabase, userId } = context;
     const { data: userData } = await supabase.auth.getUser();
     if (userData.user?.email?.toLowerCase() !== adminEmail) throw new Error("You do not have access to update bookings.");
-    const { data: role } = await supabase.from("user_roles").select("role").eq("user_id", userId).eq("role", "admin").maybeSingle();
-    if (!role) throw new Error("You do not have access to update bookings.");
+    const { data: hasAdminRole } = await supabase.rpc("has_admin_role");
+    if (!hasAdminRole) throw new Error("You do not have access to update bookings.");
     const { error } = await supabase.from("bookings").update({ status: data.status }).eq("id", data.id);
     if (error) throw new Error("The booking status could not be saved.");
+    return { ok: true };
+  });
+
+export const deleteBooking = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input) => z.object({ id: z.string().uuid() }).parse(input))
+  .handler(async ({ data, context }) => {
+    const { supabase } = context;
+    const { data: userData } = await supabase.auth.getUser();
+    if (userData.user?.email?.toLowerCase() !== adminEmail) throw new Error("You do not have access to delete bookings.");
+    const { data: hasAdminRole } = await supabase.rpc("has_admin_role");
+    if (!hasAdminRole) throw new Error("You do not have access to delete bookings.");
+    const { error } = await supabase.from("bookings").delete().eq("id", data.id);
+    if (error) throw new Error("The booking could not be deleted.");
     return { ok: true };
   });
