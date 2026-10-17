@@ -1,11 +1,12 @@
 import { createServerFn } from "@tanstack/react-start";
 import { createClient } from "@supabase/supabase-js";
 import { getRequestIP } from "@tanstack/react-start/server";
+import { z } from "zod";
 
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 import type { Database } from "@/integrations/supabase/types";
 import { adminEmail, bookingServices } from "@/lib/booking-data";
-import { bookingSchema } from "@/lib/booking-schema";
+import { bookingSchema, deleteSchema, editBookingSchema, updateSchema } from "@/lib/booking-schema";
 
 export const createBooking = createServerFn({ method: "POST" })
   .inputValidator((input) => bookingSchema.parse(input))
@@ -36,15 +37,10 @@ export const createBooking = createServerFn({ method: "POST" })
     return booking;
   });
 
-const updateSchema = z.object({
-  id: z.string().uuid(),
-  status: z.enum(["pending", "confirmed", "completed", "cancelled"]),
-});
-
 export const getAdminBookings = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
-    const { supabase, userId } = context;
+    const { supabase } = context;
     const { data: userData, error: userError } = await supabase.auth.getUser();
     if (userError || userData.user?.email?.toLowerCase() !== adminEmail) {
       throw new Error("You do not have access to the booking page.");
@@ -64,7 +60,7 @@ export const updateBookingStatus = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input) => updateSchema.parse(input))
   .handler(async ({ data, context }) => {
-    const { supabase, userId } = context;
+    const { supabase } = context;
     const { data: userData } = await supabase.auth.getUser();
     if (userData.user?.email?.toLowerCase() !== adminEmail) throw new Error("You do not have access to update bookings.");
     const { data: hasAdminRole } = await supabase.rpc("has_admin_role");
@@ -76,7 +72,7 @@ export const updateBookingStatus = createServerFn({ method: "POST" })
 
 export const deleteBooking = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input) => z.object({ id: z.string().uuid() }).parse(input))
+  .inputValidator((input) => deleteSchema.parse(input))
   .handler(async ({ data, context }) => {
     const { supabase } = context;
     const { data: userData } = await supabase.auth.getUser();
@@ -85,5 +81,28 @@ export const deleteBooking = createServerFn({ method: "POST" })
     if (!hasAdminRole) throw new Error("You do not have access to delete bookings.");
     const { error } = await supabase.from("bookings").delete().eq("id", data.id);
     if (error) throw new Error("The booking could not be deleted.");
+    return { ok: true };
+  });
+
+export const editBooking = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input) => editBookingSchema.parse(input))
+  .handler(async ({ data, context }) => {
+    const { supabase } = context;
+    const { data: userData } = await supabase.auth.getUser();
+    if (userData.user?.email?.toLowerCase() !== adminEmail) throw new Error("You do not have access to edit bookings.");
+    const { data: hasAdminRole } = await supabase.rpc("has_admin_role");
+    if (!hasAdminRole) throw new Error("You do not have access to edit bookings.");
+    const { id, name, phone, email, service, date, time, message } = data;
+    const { error } = await supabase.from("bookings").update({
+      customer_name: name,
+      customer_phone: phone,
+      customer_email: email,
+      service_name: service,
+      preferred_date: date,
+      preferred_time: time,
+      customer_message: message,
+    }).eq("id", id);
+    if (error) throw new Error("The booking details could not be saved.");
     return { ok: true };
   });
