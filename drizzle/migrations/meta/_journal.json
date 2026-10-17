@@ -15,6 +15,20 @@
       "when": 1791784941107,
       "tag": "0001_grant_admin_booking_access",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1792228813821,
+      "tag": "0002_admin_booking_delete_policy",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1792228884250,
+      "tag": "0003_secure_admin_booking_policies",
+      "breakpoints": true
     }
   ]
 }

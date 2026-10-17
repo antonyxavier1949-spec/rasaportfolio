@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type FormEvent } from "react";
 import { MessageCircle, X } from "lucide-react";
 import { useServerFn } from "@tanstack/react-start";
 
@@ -74,7 +74,7 @@ function Index() {
     };
   }, [isOpen]);
 
-  async function handleBookingSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function handleBookingSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (isSubmitting) return;
     setBookingError("");
@@ -249,18 +249,5 @@ function Index() {
         </DialogContent>
       </Dialog>
     </>
-                </div>
-              ))}
-              <div className="service-row service-row-final" style={{ "--row-delay": "670ms" } as CSSProperties}><span>Astrologer</span></div>
-            </div>
-          </div>
-        </section>
-      </div>
-    </main>
-    <footer className="site-footer">
-      <Button asChild type="button" variant="ghost" size="sm" className="admin-page-link">
-        <Link to="/admin/login">Admin Page</Link>
-      </Button>
-    </footer>
   );
 }
