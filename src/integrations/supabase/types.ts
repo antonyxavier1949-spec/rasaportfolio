@@ -249,6 +249,7 @@ export type Database = {
           status: string
         }[]
       }
+      has_admin_role: { Args: never; Returns: boolean }
     }
     Enums: {
       [_ in never]: never
